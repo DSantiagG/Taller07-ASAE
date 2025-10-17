@@ -19,6 +19,5 @@ public interface CursoRepository extends JpaRepository<CursoEntity, Integer>{
     FROM CursoEntity c
     WHERE c.id = :idCurso
     """)
-    CursoEntity obtenerCursoConFranjasYEspacio(@Param("idCurso") Integer idCurso);
-
+    CursoEntity obtenerCursoById(@Param("idCurso") Integer idCurso);
 }

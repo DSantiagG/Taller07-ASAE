@@ -31,4 +31,12 @@ public interface DocenteRepository extends JpaRepository<DocenteEntity, Integer>
     default boolean estaDisponible(Integer idDocente, EnumDias dia, LocalTime horaInicio, LocalTime horaFin) {
         return estaDisponibleRaw(idDocente, dia, horaInicio, horaFin) == 1;
     }
+
+    //TODO: Verificar si funciona correctamente
+    @Query("""
+    SELECT CASE WHEN COUNT(d) > 0 THEN true ELSE false END
+    FROM DocenteEntity d
+    WHERE d.correo = :correo
+    """)
+    boolean existePorCorreo(String correo);
 }
