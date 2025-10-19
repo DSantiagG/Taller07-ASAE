@@ -37,7 +37,7 @@ public class EspacioFisicoEntity {
     @Column(nullable = false, length = 30)
     private EnumTipoEspacioFisico tipo;
 
-    @OneToMany(mappedBy = "objEspacioFisico",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "objEspacioFisico",fetch = FetchType.EAGER)
     private List<FranjaHorariaEntity> franjasHorarias;
 
     public EspacioFisicoEntity() {
