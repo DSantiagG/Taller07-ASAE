@@ -6,11 +6,12 @@ import org.mapstruct.Mapper;
 
 import co.edu.unicauca.asae.taller07.espacioFisico.dominio.modelos.EspacioFisico;
 import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTORespuesta.EspacioFisicoDTORespuesta;
-import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTOPeticion.EspacioFisicoDTOPeticion;
+//import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTOPeticion.EspacioFisicoDTOPeticion;
 
 @Mapper(componentModel = "spring")
 public interface EspacioFisicoMapperInfraestructuraDominio {
-    EspacioFisico mappearDePeticionAEspacioFisico(EspacioFisicoDTOPeticion peticion);
+
+    //EspacioFisico mappearDePeticionAEspacioFisico(EspacioFisicoDTOPeticion peticion);
 
     EspacioFisicoDTORespuesta mappearDeEspacioFisicoAEspacioFisicoDTORespuesta(EspacioFisico espacioFisico);
 
