@@ -3,17 +3,16 @@ package co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.input;
 import java.util.List;
 
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.modelos.FranjaHoraria;
-import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.output.persistencia.entidades.FranjaHorariaEntity;
 
 public interface GestionarFranjaHorariaCUIntPort {
 
-    FranjaHoraria crearFranjaHoraria(FranjaHoraria franjaHoraria);
+    FranjaHoraria crearFranjaHoraria(FranjaHoraria franjaHoraria, Integer idCurso, Integer idEspacioFisico);
 
-    List<FranjaHorariaEntity> findByDocenteId(Integer docenteId);
+    List<FranjaHoraria> findByDocenteId(Integer docenteId);
 
-    List<FranjaHorariaEntity> findByCursoId(Integer cursoId);
+    List<FranjaHoraria> findByCursoId(Integer cursoId);
 
-    List<FranjaHorariaEntity> findAll();
+    List<FranjaHoraria> findAll();
 
     void eliminarFranjasPorCurso(Integer idCurso);
 }

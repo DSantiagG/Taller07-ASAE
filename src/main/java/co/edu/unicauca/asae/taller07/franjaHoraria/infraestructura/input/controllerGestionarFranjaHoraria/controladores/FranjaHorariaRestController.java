@@ -2,11 +2,15 @@ package co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.contro
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.input.GestionarFranjaHorariaCUIntPort;
+import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.modelos.FranjaHoraria;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTOPeticion.FranjaHorariaDTOPeticion;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTORespuesta.FranjaHorariaDTORespuesta;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaMapperInfraestructuraDominio;
@@ -20,9 +24,14 @@ public class FranjaHorariaRestController {
     private final GestionarFranjaHorariaCUIntPort objGestionarFranjaHorariaCUInt;
     private final FranjaMapperInfraestructuraDominio objMapeador;
 
-    public ResponseEntity<FranjaHorariaDTORespuesta> crearFranjaHoraria(FranjaHorariaDTOPeticion franjaHorariaDTOPeticion) {
-        // TODO Auto-generated method stub
-        return null;
+    @PostMapping()
+    public ResponseEntity<FranjaHorariaDTORespuesta> crearFranjaHoraria(@RequestBody FranjaHorariaDTOPeticion franjaHorariaDTOPeticion) {
+        Integer idCurso = franjaHorariaDTOPeticion.getIdCurso();
+        Integer idEspacioFisico = franjaHorariaDTOPeticion.getIdEspacioFisico();
+        FranjaHoraria franjaHorariaDominio = objMapeador.mappearDePeticionAFranjaHoraria(franjaHorariaDTOPeticion);
+        FranjaHoraria franjaHorariaCreada = this.objGestionarFranjaHorariaCUInt.crearFranjaHoraria(franjaHorariaDominio, idCurso, idEspacioFisico);
+        ResponseEntity<FranjaHorariaDTORespuesta> objRespuesta = new ResponseEntity<>(objMapeador.mappearDeFranjaHorariaARespuesta(franjaHorariaCreada),HttpStatus.CREATED);
+        return objRespuesta;
     }
 
     public ResponseEntity<List<FranjaHorariaDTORespuesta>> listarFranjaHorariaPorDocente(Integer idDocente) {
@@ -31,8 +40,10 @@ public class FranjaHorariaRestController {
     }
 
     public ResponseEntity<List<FranjaHorariaDTORespuesta>> listarFranjaHorariaPorCurso(Integer idCurso) {
-        // TODO Auto-generated method stub
-        return null;
+        List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findByCursoId(idCurso);
+        List<FranjaHorariaDTORespuesta> listaFranjasDTO = objMapeador.mappearDeListaFranjaHorariaARespuesta(listaFranjas);
+        ResponseEntity<List<FranjaHorariaDTORespuesta>> objRespuesta = new ResponseEntity<>(listaFranjasDTO, HttpStatus.OK);
+        return objRespuesta;
     }
     
 }

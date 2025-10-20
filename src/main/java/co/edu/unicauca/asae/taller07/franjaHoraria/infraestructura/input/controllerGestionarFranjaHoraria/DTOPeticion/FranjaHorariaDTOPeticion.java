@@ -21,7 +21,7 @@ public class FranjaHorariaDTOPeticion {
     
     private EnumDias dia;
     
-    private String idEspacioFisico;
+    private Integer idEspacioFisico;
 
-    private String idCurso;
+    private Integer idCurso;
 }

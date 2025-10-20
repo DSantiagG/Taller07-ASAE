@@ -2,6 +2,7 @@ package co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.output.persi
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,6 +14,7 @@ import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.output.persis
 
 public interface EspacioFisicoRepository extends JpaRepository<EspacioFisicoEntity, Integer>{
 
+    Optional<EspacioFisicoEntity> findById(Integer id);
     List<EspacioFisicoEntity> findByNombreStartingWithIgnoreCaseAndCapacidadGreaterThanEqualOrderByNombreAsc(String nombre, Integer capacidad);
 
     @Query("""

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.output.persistencia.entidades.FranjaHorariaEntity;
 
 @Repository
-public interface FranjaHorariaRepository extends JpaRepository<FranjaHorariaEntity, Integer> {
+public interface FranjaHorariaRepository extends JpaRepository<FranjaHorariaEntity, Integer> { 
 
     List<FranjaHorariaEntity> findByObjCursoId(Integer cursoId);
 
