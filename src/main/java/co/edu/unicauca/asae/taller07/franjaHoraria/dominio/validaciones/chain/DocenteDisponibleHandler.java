@@ -1,18 +1,15 @@
 package co.edu.unicauca.asae.taller07.franjaHoraria.dominio.validaciones.chain;
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
-import co.edu.unicauca.asae.taller07.docente.infraestructura.output.persistencia.repositorios.DocenteRepository;
-import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.output.persistencia.repositorios.EspacioFisicoRepository;
+import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.output.CadenaResponsabilidadIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.modelos.FranjaHoraria;
 
 
 
 public class DocenteDisponibleHandler extends ValidacionHandler {
 
-    private final DocenteRepository docenteRepository;
-
-    public DocenteDisponibleHandler(DocenteRepository docenteRepository, EspacioFisicoRepository espacioFisicoRepository, FormateadorResultadosIntPort objFormateadorResultados) {
-        super(objFormateadorResultados);
-        this.docenteRepository = docenteRepository;
+    
+    public DocenteDisponibleHandler(FormateadorResultadosIntPort objFormateadorResultados,CadenaResponsabilidadIntPort objCadenaResponsabilidad) {
+        super(objFormateadorResultados, objCadenaResponsabilidad);
     }
     @Override
     public void validar(FranjaHoraria franja){
@@ -21,7 +18,7 @@ public class DocenteDisponibleHandler extends ValidacionHandler {
 
         //TODO: Cambiar mensaje de error
         franja.getObjCurso().getDocentes().forEach(docente -> {
-            boolean docenteDisponible = this.docenteRepository.estaDisponible(docente.getId(), franja.getDia(), franja.getHoraInicio(), franja.getHoraFin());
+            boolean docenteDisponible = this.objCadenaResponsabilidad.estaDocenteDisponible(docente.getId(), franja.getDia(), franja.getHoraInicio(), franja.getHoraFin());
             if (!docenteDisponible) {
                 this.objFormateadorResultados.retornarRespuestaErrorReglaDeNegocio("El docente " + docente.getNombre() +" " + docente.getApellido() + " no está disponible en la franja horaria especificada.");
             }

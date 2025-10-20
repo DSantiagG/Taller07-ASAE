@@ -2,6 +2,7 @@ package co.edu.unicauca.asae.taller07.franjaHoraria.dominio.validaciones.chain;
 import java.time.LocalTime;
 
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
+import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.output.CadenaResponsabilidadIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.modelos.FranjaHoraria;
 
 
@@ -10,8 +11,8 @@ public class HorarioValidoHandler extends ValidacionHandler {
     private final LocalTime horaApertura = LocalTime.of(6, 0);
     private final LocalTime horaCierre = LocalTime.of(22, 0);
 
-    public HorarioValidoHandler(FormateadorResultadosIntPort objFormateadorResultados) {
-        super(objFormateadorResultados);
+    public HorarioValidoHandler(FormateadorResultadosIntPort objFormateadorResultados, CadenaResponsabilidadIntPort objCadenaResponsabilidad) {
+        super(objFormateadorResultados, objCadenaResponsabilidad);
     }
 
     @Override
