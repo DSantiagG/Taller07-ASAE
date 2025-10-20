@@ -1,10 +1,13 @@
 package co.edu.unicauca.asae.taller07.commons.infraestructura.output.formateador;
 
+import org.springframework.stereotype.Service;
+
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.taller07.commons.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadNoExisteException;
 import co.edu.unicauca.asae.taller07.commons.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadYaExisteException;
 import co.edu.unicauca.asae.taller07.commons.infraestructura.output.controladorExcepciones.excepcionesPropias.ReglaNegocioExcepcion;
 
+@Service
 public class FormateadorResultadosAdapter implements FormateadorResultadosIntPort{
 
     @Override
