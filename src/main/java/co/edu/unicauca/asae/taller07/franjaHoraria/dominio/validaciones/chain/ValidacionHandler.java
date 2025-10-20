@@ -2,15 +2,18 @@ package co.edu.unicauca.asae.taller07.franjaHoraria.dominio.validaciones.chain;
 
 
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
+import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.output.CadenaResponsabilidadIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.modelos.FranjaHoraria;
 
 public abstract class ValidacionHandler {
 
     protected ValidacionHandler siguienteHandler;
     protected final FormateadorResultadosIntPort objFormateadorResultados;
+    protected final CadenaResponsabilidadIntPort objCadenaResponsabilidad;
 
-    public ValidacionHandler(FormateadorResultadosIntPort objFormateadorResultados) {
+    public ValidacionHandler(FormateadorResultadosIntPort objFormateadorResultados, CadenaResponsabilidadIntPort objCadenaResponsabilidad) {
         this.objFormateadorResultados = objFormateadorResultados;
+        this.objCadenaResponsabilidad = objCadenaResponsabilidad;
     }
 
     public void setNext(ValidacionHandler siguienteHandler) {
