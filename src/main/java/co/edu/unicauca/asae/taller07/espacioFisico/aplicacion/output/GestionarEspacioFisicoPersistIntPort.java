@@ -16,4 +16,6 @@ public interface GestionarEspacioFisicoPersistIntPort {
     int actualizarEstado(Integer idEspacio, Boolean nuevoEstado);
 
     Boolean existsById(Integer idEspacio);
+
+    EspacioFisico obtenerEspacioFisicoById(Integer idEspacio);
 }
