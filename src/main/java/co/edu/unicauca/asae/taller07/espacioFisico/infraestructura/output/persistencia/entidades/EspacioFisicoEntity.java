@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
 @Entity
 @Table(name = "espacio_fisico")
 @Getter@Setter@AllArgsConstructor
@@ -37,7 +38,7 @@ public class EspacioFisicoEntity {
     @Column(nullable = false, length = 30)
     private EnumTipoEspacioFisico tipo;
 
-    @OneToMany(mappedBy = "objEspacioFisico",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "objEspacioFisico",fetch = FetchType.EAGER)
     private List<FranjaHorariaEntity> franjasHorarias;
 
     public EspacioFisicoEntity() {

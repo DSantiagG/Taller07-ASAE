@@ -38,10 +38,10 @@ public class CursoEntity {
     @JoinColumn(name = "asignatura_id", nullable = false)
     private AsignaturaEntity objAsignatura;
 
-    @OneToMany(mappedBy = "objCurso",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "objCurso",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<FranjaHorariaEntity> franjasHorarias;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "curso_docente", joinColumns = @JoinColumn(name = "curso_id"), inverseJoinColumns = @JoinColumn(name = "docente_id"))
     private List<DocenteEntity> docentes;
 
