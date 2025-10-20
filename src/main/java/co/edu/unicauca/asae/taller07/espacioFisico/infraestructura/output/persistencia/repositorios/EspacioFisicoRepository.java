@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import co.edu.unicauca.asae.taller07.commons.dominio.modelos.EnumDias;
 import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.output.persistencia.entidades.EspacioFisicoEntity;
 
-public interface EspacioFisicoRepository extends JpaRepository<EspacioFisicoEntity, Integer>{
+public interface EspacioFisicoRepository extends CrudRepository<EspacioFisicoEntity, Integer>{
 
     List<EspacioFisicoEntity> findByNombreStartingWithIgnoreCaseAndCapacidadGreaterThanEqualOrderByNombreAsc(String nombre, Integer capacidad);
 

@@ -1,12 +1,12 @@
-package co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.mappers;
+package co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.mappers;
 
 import java.util.List;
 
 import org.mapstruct.Mapper;
 
 import co.edu.unicauca.asae.taller07.espacioFisico.dominio.modelos.EspacioFisico;
-import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.DTOPeticion.EspacioFisicoDTOPeticion;
-import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.DTORespuesta.EspacioFisicoDTORespuesta;
+import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTORespuesta.EspacioFisicoDTORespuesta;
+import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTOPeticion.EspacioFisicoDTOPeticion;
 
 @Mapper(componentModel = "spring")
 public interface EspacioFisicoMapperInfraestructuraDominio {

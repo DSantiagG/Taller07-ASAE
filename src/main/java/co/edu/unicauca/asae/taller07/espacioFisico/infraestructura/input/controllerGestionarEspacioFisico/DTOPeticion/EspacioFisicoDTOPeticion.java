@@ -1,4 +1,4 @@
-package co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.DTOPeticion;
+package co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTOPeticion;
 
 import java.util.List;
 

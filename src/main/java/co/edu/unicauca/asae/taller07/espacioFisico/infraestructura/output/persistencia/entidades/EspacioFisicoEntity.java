@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
 @Entity
 @Table(name = "espacio_fisico")
 @Getter@Setter@AllArgsConstructor

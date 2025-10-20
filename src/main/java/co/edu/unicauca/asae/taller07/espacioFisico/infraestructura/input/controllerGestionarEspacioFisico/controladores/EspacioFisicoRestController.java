@@ -1,11 +1,11 @@
-package co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controladores;
+package co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.controladores;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unicauca.asae.taller07.espacioFisico.aplicacion.input.GestionarEspacioFisicoCUIntPort;
-import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.DTORespuesta.EspacioFisicoDTORespuesta;
-import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.mappers.EspacioFisicoMapperInfraestructuraDominio;
+import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTORespuesta.EspacioFisicoDTORespuesta;
+import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.mappers.EspacioFisicoMapperInfraestructuraDominio;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
