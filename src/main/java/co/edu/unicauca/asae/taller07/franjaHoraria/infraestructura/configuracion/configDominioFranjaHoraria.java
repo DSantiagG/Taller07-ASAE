@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.taller07.docente.infraestructura.output.persistencia.repositorios.DocenteRepository;
 import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.output.persistencia.repositorios.EspacioFisicoRepository;
+import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.casosDeUso.GestionarFranjaHorariaCUAdapter;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.validaciones.chain.DocenteDisponibleHandler;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.validaciones.chain.EspacioFisicoActivoHandler;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.validaciones.chain.EspacioFisicoDisponibleHandler;
@@ -29,6 +30,11 @@ public class configDominioFranjaHoraria {
         espacioFisicoActivoHandler.setNext(docenteDisponibleHandler);
 
         return horarioValidoHandler;
+    }
+
+    @Bean
+    public GestionarFranjaHorariaCUAdapter gestionarFranjaHorariaCUAdapter(ValidacionHandler cadenaValidaciones) {
+        return new GestionarFranjaHorariaCUAdapter(cadenaValidaciones);
     }
 
 }
