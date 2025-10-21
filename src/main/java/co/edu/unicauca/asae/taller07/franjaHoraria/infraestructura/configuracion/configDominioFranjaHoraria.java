@@ -4,7 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
+import co.edu.unicauca.asae.taller07.espacioFisico.aplicacion.output.GestionarEspacioFisicoPersistIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.output.CadenaResponsabilidadIntPort;
+import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.output.GestionarCursoPersistIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.output.GestionarFranjaHorariaPersistIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.casosDeUso.GestionarFranjaHorariaCUAdapter;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.validaciones.chain.DocenteDisponibleHandler;
@@ -33,8 +35,18 @@ public class configDominioFranjaHoraria {
     }
 
     @Bean
-    public GestionarFranjaHorariaCUAdapter gestionarFranjaHorariaCUAdapter(ValidacionHandler cadenaValidaciones, GestionarFranjaHorariaPersistIntPort gestionarFranjaHorariaPersistIntPort, FormateadorResultadosIntPort formateadorResultados) {
-        return new GestionarFranjaHorariaCUAdapter(gestionarFranjaHorariaPersistIntPort, cadenaValidaciones, formateadorResultados);
+    public GestionarFranjaHorariaCUAdapter gestionarFranjaHorariaCUAdapter(
+        GestionarFranjaHorariaPersistIntPort gestionarFranjaHorariaPersistIntPort, 
+        GestionarCursoPersistIntPort gestionarCursoPersistIntPort,
+        GestionarEspacioFisicoPersistIntPort gestionarEspacioFisicoPersistIntPort,
+        ValidacionHandler cadenaValidaciones, 
+        FormateadorResultadosIntPort formateadorResultados) {
+        return new GestionarFranjaHorariaCUAdapter(
+            gestionarFranjaHorariaPersistIntPort, 
+            gestionarCursoPersistIntPort, 
+            gestionarEspacioFisicoPersistIntPort,
+            cadenaValidaciones, 
+            formateadorResultados);
     }
 
 }
