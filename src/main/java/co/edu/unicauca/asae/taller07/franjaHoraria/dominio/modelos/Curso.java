@@ -27,4 +27,10 @@ public class Curso {
         this.franjasHorarias = new ArrayList<>();
         this.docentes = new ArrayList<>();
     }
+
+    public Curso(Integer id) {
+        this.franjasHorarias = new ArrayList<>();
+        this.docentes = new ArrayList<>();
+        this.id=id;
+    }
 }
