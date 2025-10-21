@@ -6,5 +6,7 @@ import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.modelos.FranjaHoraria
 
 public interface GestionarFranjaHorariaPersistIntPort {
     FranjaHoraria crearFranjaHoraria(FranjaHoraria franjaHoraria);
-    List<FranjaHoraria> findByCursoId(Integer cursoId);
+    List<FranjaHoraria> encontrarByCursoId(Integer cursoId);
+    List<FranjaHoraria> encontrarByDocenteId(Integer docenteId);
+    void eliminarFranjasPorCurso(Integer cursoId);
 }

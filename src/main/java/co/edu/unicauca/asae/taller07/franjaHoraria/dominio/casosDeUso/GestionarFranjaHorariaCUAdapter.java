@@ -3,6 +3,7 @@ package co.edu.unicauca.asae.taller07.franjaHoraria.dominio.casosDeUso;
 import java.util.List;
 
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
+import co.edu.unicauca.asae.taller07.docente.aplicacion.output.GestionarDocentePersistIntPort;
 import co.edu.unicauca.asae.taller07.espacioFisico.aplicacion.output.GestionarEspacioFisicoPersistIntPort;
 import co.edu.unicauca.asae.taller07.espacioFisico.dominio.modelos.EspacioFisico;
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.input.GestionarFranjaHorariaCUIntPort;
@@ -16,6 +17,7 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
 
     private final GestionarFranjaHorariaPersistIntPort gestionarFranjaHorariaPersistIntPort;
     private final GestionarEspacioFisicoPersistIntPort gestionarEspacioFisicoPersistIntPort;
+    private final GestionarDocentePersistIntPort gestionarDocentePersistIntPort;
     private final GestionarCursoPersistIntPort gestionarCursoPersistIntPort;
     protected final FormateadorResultadosIntPort objFormateadorResultados;
     private final ValidacionHandler cadenaValidaciones;
@@ -25,12 +27,14 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
         GestionarCursoPersistIntPort gestionarCursoPersistIntPort, 
         GestionarEspacioFisicoPersistIntPort gestionarEspacioFisicoPersistIntPort, 
         ValidacionHandler cadenaValidaciones, 
-        FormateadorResultadosIntPort objFormateadorResultados) {
+        FormateadorResultadosIntPort objFormateadorResultados,
+        GestionarDocentePersistIntPort gestionarDocentePersistIntPort) {
         this.gestionarFranjaHorariaPersistIntPort = gestionarFranjaHorariaPersistIntPort;
         this.gestionarCursoPersistIntPort = gestionarCursoPersistIntPort;
         this.gestionarEspacioFisicoPersistIntPort = gestionarEspacioFisicoPersistIntPort;
         this.cadenaValidaciones = cadenaValidaciones;
         this.objFormateadorResultados = objFormateadorResultados;
+        this.gestionarDocentePersistIntPort = gestionarDocentePersistIntPort;
     }
 
     @Override
@@ -48,23 +52,29 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
 
     @Override
     public void eliminarFranjasPorCurso(Integer idCurso) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminarFranjasPorCurso'");
+        boolean curso = this.gestionarCursoPersistIntPort.existsById(idCurso);
+        if (!curso) {
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadExiste("El curso no existe");
+        }
+        this.gestionarFranjaHorariaPersistIntPort.eliminarFranjasPorCurso(idCurso);
     }
 
     @Override
     public List<FranjaHoraria> findByDocenteId(Integer docenteId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByDocenteId'");
+        boolean docente = this.gestionarDocentePersistIntPort.existePorId(docenteId);
+        if (!docente) {
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadExiste("El docente no existe");
+        }
+        return this.gestionarFranjaHorariaPersistIntPort.encontrarByDocenteId(docenteId);
     }
 
     @Override
     public List<FranjaHoraria> findByCursoId(Integer cursoId) {
-        Curso cursoAsociado = this.gestionarCursoPersistIntPort.obtenerCursoById(cursoId);
-        if (cursoAsociado == null) {
+        boolean cursoAsociado = this.gestionarCursoPersistIntPort.existsById(cursoId);
+        if (!cursoAsociado) {
             this.objFormateadorResultados.retornarRespuestaErrorEntidadExiste("El curso no existe");
         }
-        return this.gestionarFranjaHorariaPersistIntPort.findByCursoId(cursoId);
+        return this.gestionarFranjaHorariaPersistIntPort.encontrarByCursoId(cursoId);
 
     }
 

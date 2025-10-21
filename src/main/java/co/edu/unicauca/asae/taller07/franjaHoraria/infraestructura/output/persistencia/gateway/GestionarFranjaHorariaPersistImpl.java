@@ -17,9 +17,9 @@ public class GestionarFranjaHorariaPersistImpl implements GestionarFranjaHoraria
     private final FranjaHorariaRepository franjaHorariaRepository;
     private final ModelMapper objMapper;
 
-    public GestionarFranjaHorariaPersistImpl(FranjaHorariaRepository franjaHorariaRepository) {
+    public GestionarFranjaHorariaPersistImpl(FranjaHorariaRepository franjaHorariaRepository, ModelMapper objMapper) {
         this.franjaHorariaRepository = franjaHorariaRepository;
-        this.objMapper = new ModelMapper();
+        this.objMapper = objMapper;
     }
 
     @Override
@@ -30,10 +30,24 @@ public class GestionarFranjaHorariaPersistImpl implements GestionarFranjaHoraria
     }
 
     @Override
-    public List<FranjaHoraria> findByCursoId(Integer cursoId) {
+    public List<FranjaHoraria> encontrarByCursoId(Integer cursoId) {
         List<FranjaHorariaEntity> franjasEntities = franjaHorariaRepository.findByObjCursoId(cursoId);
+        
+        List<FranjaHoraria> franjas = this.objMapper.map(franjasEntities, new TypeToken<List<FranjaHoraria>>() {}.getType());
+
+        return franjas;
+    }
+
+    @Override
+    public List<FranjaHoraria> encontrarByDocenteId(Integer docenteId) {
+        List<FranjaHorariaEntity> franjasEntities = franjaHorariaRepository.findByObjDocenteId(docenteId);
         List<FranjaHoraria> franjas = this.objMapper.map(franjasEntities, new TypeToken<List<FranjaHoraria>>() {}.getType());
         return franjas;
+    }
+
+    @Override
+    public void eliminarFranjasPorCurso(Integer cursoId) {
+        this.franjaHorariaRepository.eliminarFranjasPorCurso(cursoId);
     }
     
 }

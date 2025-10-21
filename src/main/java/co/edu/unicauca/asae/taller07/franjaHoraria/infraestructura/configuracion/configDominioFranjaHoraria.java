@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
+import co.edu.unicauca.asae.taller07.docente.aplicacion.output.GestionarDocentePersistIntPort;
 import co.edu.unicauca.asae.taller07.espacioFisico.aplicacion.output.GestionarEspacioFisicoPersistIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.output.CadenaResponsabilidadIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.output.GestionarCursoPersistIntPort;
@@ -40,13 +41,15 @@ public class configDominioFranjaHoraria {
         GestionarCursoPersistIntPort gestionarCursoPersistIntPort,
         GestionarEspacioFisicoPersistIntPort gestionarEspacioFisicoPersistIntPort,
         ValidacionHandler cadenaValidaciones, 
-        FormateadorResultadosIntPort formateadorResultados) {
+        FormateadorResultadosIntPort formateadorResultados,
+        GestionarDocentePersistIntPort gestionarDocentePersistIntPort) {
         return new GestionarFranjaHorariaCUAdapter(
             gestionarFranjaHorariaPersistIntPort, 
             gestionarCursoPersistIntPort, 
             gestionarEspacioFisicoPersistIntPort,
             cadenaValidaciones, 
-            formateadorResultados);
+            formateadorResultados,
+            gestionarDocentePersistIntPort);
     }
 
 }
