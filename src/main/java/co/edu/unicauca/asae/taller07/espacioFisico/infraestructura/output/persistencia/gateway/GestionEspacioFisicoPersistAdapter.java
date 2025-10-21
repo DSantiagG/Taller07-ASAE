@@ -58,4 +58,14 @@ public class GestionEspacioFisicoPersistAdapter implements GestionarEspacioFisic
     public Boolean existsById(Integer idEspacio) {
         return this.objEspacioFisicoRepositorio.existsById(idEspacio);
     }
+
+    @Override
+    public EspacioFisico obtenerEspacioFisicoById(Integer idEspacio) {
+        if (this.objEspacioFisicoRepositorio.existsById(idEspacio)) {
+            EspacioFisicoEntity espacioFisicoEntity = this.objEspacioFisicoRepositorio.findById(idEspacio).get();
+            EspacioFisico espacioFisico = this.objMapeador.map(espacioFisicoEntity, EspacioFisico.class);
+            return espacioFisico;
+        }
+        return null;
+    }
 }
