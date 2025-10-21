@@ -41,7 +41,7 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
     public FranjaHoraria crearFranjaHoraria(FranjaHoraria franjaHoraria, Integer idCurso, Integer idEspacioFisico) {
         Curso cursoAsociado = this.gestionarCursoPersistIntPort.obtenerCursoById(idCurso);
         if(cursoAsociado == null){
-            this.objFormateadorResultados.retornarRespuestaErrorEntidadExiste("El curso no existe");
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
         }
         EspacioFisico espacioFisicoAsociado = this.gestionarEspacioFisicoPersistIntPort.obtenerEspacioFisicoById(idEspacioFisico);
         franjaHoraria.setObjCurso(cursoAsociado);
@@ -54,7 +54,7 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
     public void eliminarFranjasPorCurso(Integer idCurso) {
         boolean curso = this.gestionarCursoPersistIntPort.existsById(idCurso);
         if (!curso) {
-            this.objFormateadorResultados.retornarRespuestaErrorEntidadExiste("El curso no existe");
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
         }
         this.gestionarFranjaHorariaPersistIntPort.eliminarFranjasPorCurso(idCurso);
     }
@@ -72,7 +72,7 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
     public List<FranjaHoraria> findByCursoId(Integer cursoId) {
         boolean cursoAsociado = this.gestionarCursoPersistIntPort.existsById(cursoId);
         if (!cursoAsociado) {
-            this.objFormateadorResultados.retornarRespuestaErrorEntidadExiste("El curso no existe");
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
         }
         return this.gestionarFranjaHorariaPersistIntPort.encontrarByCursoId(cursoId);
 
