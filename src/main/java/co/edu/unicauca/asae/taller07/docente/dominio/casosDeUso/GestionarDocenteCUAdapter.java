@@ -1,5 +1,7 @@
 package co.edu.unicauca.asae.taller07.docente.dominio.casosDeUso;
 
+import java.util.ArrayList;
+
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.taller07.docente.aplicacion.input.GestionarDocenteCUIntPort;
 import co.edu.unicauca.asae.taller07.docente.aplicacion.output.GestionarDocentePersistIntPort;
@@ -36,14 +38,16 @@ public class GestionarDocenteCUAdapter implements GestionarDocenteCUIntPort {
                     .retornarRespuestaErrorReglaDeNegocio("Error, Ya existe un docente con el correo " + nuevoDocente.getCorreo());
         }
 
+        ArrayList<Curso> cursosDB = new ArrayList<>();
         for(Curso curso:nuevoDocente.getCursos()){
+            System.out.println("Curso");
             Curso cursoBD = this.objGestionarCursoCU.obtenerCursoById(curso.getId());
             if(cursoBD==null){
                 this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
             }
-            curso=cursoBD;
+            cursosDB.add(cursoBD);
         }
-
+        nuevoDocente.setCursos(cursosDB);
         docenteCreado = this.objGestionarDocentePersist.guardar(nuevoDocente);
 
         return docenteCreado;

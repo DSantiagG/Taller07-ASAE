@@ -1,6 +1,7 @@
 package co.edu.unicauca.asae.taller07.docente.aplicacion.output;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import co.edu.unicauca.asae.taller07.commons.dominio.modelos.EnumDias;
 import co.edu.unicauca.asae.taller07.docente.dominio.modelos.Docente;
@@ -13,4 +14,6 @@ public interface GestionarDocentePersistIntPort {
     boolean existePorId(Integer idDocente);
 
     Docente guardar(Docente nuevoDocente);
+
+    List<Docente> getDocentesPorCursoId (Integer idCurso);
 }
