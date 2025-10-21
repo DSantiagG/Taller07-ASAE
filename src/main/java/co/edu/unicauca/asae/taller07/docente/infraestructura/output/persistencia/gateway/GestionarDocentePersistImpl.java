@@ -1,6 +1,7 @@
 package co.edu.unicauca.asae.taller07.docente.infraestructura.output.persistencia.gateway;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import co.edu.unicauca.asae.taller07.commons.dominio.modelos.EnumDias;
 import co.edu.unicauca.asae.taller07.docente.aplicacion.output.GestionarDocentePersistIntPort;
 import co.edu.unicauca.asae.taller07.docente.dominio.modelos.Docente;
 import co.edu.unicauca.asae.taller07.docente.infraestructura.output.persistencia.entidades.DocenteEntity;
+import co.edu.unicauca.asae.taller07.docente.infraestructura.output.persistencia.entidades.OficinaEntity;
 import co.edu.unicauca.asae.taller07.docente.infraestructura.output.persistencia.repositorios.DocenteRepository;
 
 @Service
@@ -44,6 +46,13 @@ public class GestionarDocentePersistImpl implements GestionarDocentePersistIntPo
     @Override
     public boolean existePorId(Integer idDocente) {
         return this.docenteRepository.existsById(idDocente);
+    }
+
+    //TODO
+    @Override
+    public List<Docente> getDocentesPorCursoId(Integer idCurso) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDocentesPorCursoId'");
     }
 
 }

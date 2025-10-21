@@ -16,6 +16,7 @@ public interface DocenteMapperInfraestructuraDominio {
 
     @Mapping(target = "cursos", ignore = true)
     @Mapping(target = "objOficina.docentes", ignore = true)
+    @Mapping(target = "objOficina.id", ignore = true)
     @Mapping(target = "id", ignore = true)
     Docente aDominio(DocenteDTOPeticion docenteDto);
 

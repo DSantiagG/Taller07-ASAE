@@ -8,8 +8,7 @@ import lombok.Setter;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor
 public class OficinaDTOPeticion {
-    @NotNull
-    private Integer id;
+    
     @NotNull
     private String nombre;
     @NotNull
