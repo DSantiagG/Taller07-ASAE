@@ -15,7 +15,6 @@ public class EspacioFisicoDisponibleHandler extends ValidacionHandler {
         System.out.println("Validando disponibilidad del espacio físico...");
         boolean espacioFisicoDisponible = objCadenaResponsabilidad.estaEspacioFisicoDisponible(franja.getObjEspacioFisico().getId(), franja.getDia(), franja.getHoraInicio(), franja.getHoraFin());
 
-        //TODO: Cambiar mensaje de error
         if (!espacioFisicoDisponible) {
             this.objFormateadorResultados.retornarRespuestaErrorReglaDeNegocio("El espacio físico no está disponible en la franja horaria especificada");
         }

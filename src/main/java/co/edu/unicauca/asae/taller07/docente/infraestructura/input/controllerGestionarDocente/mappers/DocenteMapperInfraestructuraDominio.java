@@ -11,7 +11,6 @@ import co.edu.unicauca.asae.taller07.docente.infraestructura.input.controllerGes
 @Mapper(componentModel = "spring")
 public interface DocenteMapperInfraestructuraDominio {
 
-    
     DocenteDTORespuesta aDtoRespuesta(Docente docente);
 
     @Mapping(target = "cursos", ignore = true)
