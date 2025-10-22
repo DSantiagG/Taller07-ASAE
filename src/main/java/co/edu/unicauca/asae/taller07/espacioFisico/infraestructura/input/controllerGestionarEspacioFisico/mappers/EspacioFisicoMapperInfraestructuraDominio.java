@@ -3,15 +3,18 @@ package co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.contro
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import co.edu.unicauca.asae.taller07.espacioFisico.dominio.modelos.EspacioFisico;
 import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTORespuesta.EspacioFisicoDTORespuesta;
-//import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTOPeticion.EspacioFisicoDTOPeticion;
+import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTOPeticion.EspacioFisicoDTOPeticion;
 
 @Mapper(componentModel = "spring")
 public interface EspacioFisicoMapperInfraestructuraDominio {
 
-    //EspacioFisico mappearDePeticionAEspacioFisico(EspacioFisicoDTOPeticion peticion);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "franjasHorarias", ignore = true)
+    EspacioFisico mappearDePeticionAEspacioFisico(EspacioFisicoDTOPeticion peticion);
 
     EspacioFisicoDTORespuesta mappearDeEspacioFisicoAEspacioFisicoDTORespuesta(EspacioFisico espacioFisico);
 

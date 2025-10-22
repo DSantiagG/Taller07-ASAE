@@ -19,3 +19,4 @@ INSERT INTO curso_docente (curso_id, docente_id) VALUES (1, 2);
 INSERT INTO curso_docente (curso_id, docente_id) VALUES (2, 3);
 
 INSERT INTO franja_horaria (id, dia, hora_inicio, hora_fin, curso_id, espacio_fisico_id) VALUES (1, 'LUNES', '08:00:00', '10:00:00', 1, 1);
+INSERT INTO franja_horaria (id, dia, hora_inicio, hora_fin, curso_id, espacio_fisico_id) VALUES (2, 'MIERCOLES', '10:00:00', '12:00:00', 1, 2);
