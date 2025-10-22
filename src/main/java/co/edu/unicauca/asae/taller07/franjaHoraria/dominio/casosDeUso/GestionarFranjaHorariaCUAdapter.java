@@ -44,6 +44,9 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
             this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
         }
         EspacioFisico espacioFisicoAsociado = this.gestionarEspacioFisicoPersistIntPort.obtenerEspacioFisicoById(idEspacioFisico);
+        if(cursoAsociado.getCupo() > espacioFisicoAsociado.getCapacidad()){
+            this.objFormateadorResultados.retornarRespuestaErrorReglaDeNegocio("El espacio físico no tiene la capacidad suficiente para el curso");
+        }
         franjaHoraria.setObjCurso(cursoAsociado);
         franjaHoraria.setObjEspacioFisico(espacioFisicoAsociado);
         this.cadenaValidaciones.validar(franjaHoraria);
