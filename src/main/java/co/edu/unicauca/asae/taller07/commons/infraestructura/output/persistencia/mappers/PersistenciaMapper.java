@@ -15,7 +15,6 @@ public class PersistenciaMapper {
         ModelMapper mapper = new ModelMapper();
         mapper.typeMap(FranjaHorariaEntity.class, FranjaHoraria.class)
           .addMappings(m -> m.skip(FranjaHoraria::setObjCurso));
-          System.out.println("✅ TypeMap creado: " + mapper.getTypeMap(FranjaHorariaEntity.class, FranjaHoraria.class));
 
         return mapper;
     }
