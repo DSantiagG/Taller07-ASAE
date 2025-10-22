@@ -14,5 +14,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DocenteDTORespuesta extends PersonaDTORespuesta {
     private OficinaDTORespuesta objOficina;
-    private List<CursoDTORespuestaDocente> listaCursos;
+    private List<CursoDTORespuestaDocente> cursos;
 }

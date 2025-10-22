@@ -37,7 +37,7 @@ public class DocenteRestController {
         }
         Docente docenteCreado = gestionarDocenteCU.crearDocente(docenteDominio);
         ResponseEntity<DocenteDTORespuesta> objRespuesta =new ResponseEntity<>(docenteMapper.aDtoRespuesta(docenteCreado),HttpStatus.CREATED);
-        
+
         return objRespuesta;
     }
     
