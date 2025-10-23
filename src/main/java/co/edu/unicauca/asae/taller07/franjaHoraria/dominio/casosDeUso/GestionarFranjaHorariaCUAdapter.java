@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.taller07.docente.aplicacion.output.GestionarDocentePersistIntPort;
+import co.edu.unicauca.asae.taller07.docente.dominio.modelos.Docente;
 import co.edu.unicauca.asae.taller07.espacioFisico.aplicacion.output.GestionarEspacioFisicoPersistIntPort;
 import co.edu.unicauca.asae.taller07.espacioFisico.dominio.modelos.EspacioFisico;
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.input.GestionarFranjaHorariaCUIntPort;
@@ -44,13 +45,11 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
             this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
         }
         EspacioFisico espacioFisicoAsociado = this.gestionarEspacioFisicoPersistIntPort.obtenerEspacioFisicoById(idEspacioFisico);
-        if(cursoAsociado.getCupo() > espacioFisicoAsociado.getCapacidad()){
-            this.objFormateadorResultados.retornarRespuestaErrorReglaDeNegocio("El espacio físico no tiene la capacidad suficiente para el curso");
-        }
         franjaHoraria.setObjCurso(cursoAsociado);
         franjaHoraria.setObjEspacioFisico(espacioFisicoAsociado);
         this.cadenaValidaciones.validar(franjaHoraria);
         return this.gestionarFranjaHorariaPersistIntPort.crearFranjaHoraria(franjaHoraria);
+    
     }
 
     @Override
@@ -77,8 +76,9 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
         if (!cursoAsociado) {
             this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
         }
+        List<Docente> listaDocentes = this.gestionarDocentePersistIntPort.getDocentesPorCursoId(cursoId);
+        
         return this.gestionarFranjaHorariaPersistIntPort.encontrarByCursoId(cursoId);
-
     }
 
     @Override

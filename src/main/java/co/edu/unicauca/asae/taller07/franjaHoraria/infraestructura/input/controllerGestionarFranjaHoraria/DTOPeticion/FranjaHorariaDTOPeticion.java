@@ -3,6 +3,7 @@ package co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.contro
 import java.time.LocalTime;
 
 import co.edu.unicauca.asae.taller07.commons.dominio.modelos.EnumDias;
+import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.validaciones.CapacidadValida;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.validaciones.FormatoMilitar;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@CapacidadValida
 public class FranjaHorariaDTOPeticion {
     @NotNull(message = "{franjaHoraria.horaInicio.notNull}")
     @FormatoMilitar

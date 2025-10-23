@@ -40,7 +40,6 @@ public class FranjaHorariaRestController {
         return objRespuesta;
     }
 
-    //TODO: CAMBIAR A EAGER
     @GetMapping("/Docente/{idDocente}")
     public ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> listarFranjaHorariaPorDocente(@PathVariable @Min(1) Integer idDocente) {
         List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findByDocenteId(idDocente);
