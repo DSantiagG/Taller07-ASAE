@@ -1,20 +1,27 @@
 package co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.validaciones;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class FormatoMilitarValidator implements ConstraintValidator<FormatoMilitar, LocalTime> { // Implementa la lógica de validación para la anotación @FormatoMilitar
+public class FormatoMilitarValidator implements ConstraintValidator<FormatoMilitar, String> { // Implementa la lógica de validación para la anotación @FormatoMilitar
 
     @Override
-    public boolean isValid(LocalTime value, ConstraintValidatorContext context) {
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+
         if (value == null) {
             return true; // La validación de null se maneja con @NotNull
         }
-        int hour = value.getHour();
-        int minute = value.getMinute();
-        return (hour >= 0 && hour <= 23) && (minute >= 0 && minute <= 59);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime.parse(value, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
 }

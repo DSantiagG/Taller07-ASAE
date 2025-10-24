@@ -5,6 +5,7 @@ INSERT INTO persona (dtype,id, nombre, apellido, correo,identificacion) VALUES (
 INSERT INTO espacio_fisico (id, nombre, ubicacion,estado, capacidad,tipo) VALUES (1, 'Aula 101', 'Edificio A', true, 30,'SALON');
 INSERT INTO espacio_fisico (id, nombre, ubicacion,estado, capacidad,tipo) VALUES (2, 'Laboratorio 202', 'Edificio B', true, 20,'LABORATORIO');
 INSERT INTO espacio_fisico (id, nombre, ubicacion,estado, capacidad,tipo) VALUES (3, 'Auditorio Principal', 'Edificio C', true, 100,'AUDITORIO');
+INSERT INTO espacio_fisico (id, nombre, ubicacion,estado, capacidad,tipo) VALUES (4, 'Salon 200', 'Edificio C', false, 25,'SALON');
 
 INSERT INTO asignatura (id, nombre, codigo, numeroCreditos) VALUES (1, 'Programacion Orientada a Objetos', 'MAT101', 4);
 INSERT INTO asignatura (id, nombre, codigo, numeroCreditos) VALUES (2, 'Estructuras de Datos', 'MAT102', 4);

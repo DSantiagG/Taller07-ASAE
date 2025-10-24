@@ -17,7 +17,7 @@ public class EspacioFisicoActivoHandler extends ValidacionHandler {
         EspacioFisico espacioFisico = this.objCadenaResponsabilidad.obtenerEspacioFisicoById(franja.getObjEspacioFisico().getId());
 
         if (espacioFisico == null) {
-            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El espacio físico no existe");
+            this.objFormateadorResultados.retornarRespuestaErrorReglaDeNegocio("El espacio físico no existe");
         } else {
             if (!espacioFisico.getEstado()) {
                 this.objFormateadorResultados.retornarRespuestaErrorReglaDeNegocio("El espacio físico no se encuentra activo");

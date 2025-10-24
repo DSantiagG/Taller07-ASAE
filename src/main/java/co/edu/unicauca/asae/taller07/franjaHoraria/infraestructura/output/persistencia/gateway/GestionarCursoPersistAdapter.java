@@ -31,6 +31,9 @@ public class GestionarCursoPersistAdapter implements GestionarCursoPersistIntPor
 
     @Override
     public Curso obtenerCursoById(Integer idCurso) {
+        if (this.objCursoRepositorio.existsById(idCurso) == false) {
+            return null; 
+        }
         CursoEntity cursoEntity = this.objCursoRepositorio.obtenerCursoById(idCurso);
         Curso curso = this.objMapeador.map(cursoEntity, Curso.class);
         return curso;

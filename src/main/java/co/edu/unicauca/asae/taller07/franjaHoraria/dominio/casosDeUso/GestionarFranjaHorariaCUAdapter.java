@@ -41,9 +41,12 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
     public FranjaHoraria crearFranjaHoraria(FranjaHoraria franjaHoraria, Integer idCurso, Integer idEspacioFisico) {
         Curso cursoAsociado = this.gestionarCursoPersistIntPort.obtenerCursoById(idCurso);
         if(cursoAsociado == null){
-            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
+            this.objFormateadorResultados.retornarRespuestaErrorReglaDeNegocio("El curso no existe");
         }
         EspacioFisico espacioFisicoAsociado = this.gestionarEspacioFisicoPersistIntPort.obtenerEspacioFisicoById(idEspacioFisico);
+        if(espacioFisicoAsociado == null){
+            this.objFormateadorResultados.retornarRespuestaErrorReglaDeNegocio("El espacio físico no existe");
+        }
         franjaHoraria.setObjCurso(cursoAsociado);
         franjaHoraria.setObjEspacioFisico(espacioFisicoAsociado);
         this.cadenaValidaciones.validar(franjaHoraria);

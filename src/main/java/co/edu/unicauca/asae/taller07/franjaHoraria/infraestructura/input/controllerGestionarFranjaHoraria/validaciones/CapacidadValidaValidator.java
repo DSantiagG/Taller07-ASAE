@@ -30,7 +30,6 @@ public class CapacidadValidaValidator implements ConstraintValidator<CapacidadVa
         }
         Curso curso = gestionarCursoCUIntPort.obtenerCursoById(franjaHorariaDTO.getIdCurso());
         EspacioFisico espacioFisico = gestionarEspacioFisicoCUIntPort.obtenerEspacioFisicoById(franjaHorariaDTO.getIdEspacioFisico());
-
         if(curso == null || espacioFisico == null) {
             return true; // La validación de existencia no se maneja aquí
         }

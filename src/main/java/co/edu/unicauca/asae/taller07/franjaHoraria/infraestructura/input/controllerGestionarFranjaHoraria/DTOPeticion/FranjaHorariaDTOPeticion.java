@@ -1,7 +1,5 @@
 package co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTOPeticion;
 
-import java.time.LocalTime;
-
 import co.edu.unicauca.asae.taller07.commons.dominio.modelos.EnumDias;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.validaciones.CapacidadValida;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.validaciones.FormatoMilitar;
@@ -20,11 +18,11 @@ import lombok.Setter;
 public class FranjaHorariaDTOPeticion {
     @NotNull(message = "{franjaHoraria.horaInicio.notNull}")
     @FormatoMilitar
-    private LocalTime horaInicio;
+    private String horaInicio;
 
     @NotNull(message = "{franjaHoraria.horaFin.notNull}")
     @FormatoMilitar
-    private LocalTime horaFin;
+    private String horaFin;
 
     @NotNull(message = "{franjaHoraria.dia.notNull}")
     private EnumDias dia;
