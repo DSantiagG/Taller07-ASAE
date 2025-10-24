@@ -1,20 +1,16 @@
 package co.edu.unicauca.asae.taller07.commons.infraestructura.output.controladorExcepciones;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import co.edu.unicauca.asae.taller07.commons.infraestructura.output.controladorExcepciones.estructuraExcepciones.*;
 import co.edu.unicauca.asae.taller07.commons.infraestructura.output.controladorExcepciones.estructuraExcepciones.Error;
@@ -90,40 +86,5 @@ public class RestApiExceptionHandler {
     ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
         return new ResponseEntity<>(e.getMessage(),
                 HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<Map<String, Object>> handleInvalidEnumOrFormat(
-            final HttpServletRequest req,
-            final HttpMessageNotReadableException ex) {
-
-        Map<String, Object> error = new HashMap<>();
-
-        // Caso específico: Enum inválido
-        if (ex.getCause() instanceof InvalidFormatException invalidEx
-                && invalidEx.getTargetType().isEnum()) {
-
-            String fieldName = invalidEx.getPath().isEmpty()
-                    ? "campo_desconocido"
-                    : invalidEx.getPath().get(0).getFieldName();
-
-            error.put("campo", fieldName);
-            error.put("mensaje", "El valor proporcionado no es válido. Debe ser uno de: "
-                    + Arrays.toString(invalidEx.getTargetType().getEnumConstants()));
-            error.put("codigo", HttpStatus.BAD_REQUEST.value());
-            error.put("url", req.getRequestURL().toString());
-            error.put("metodo", req.getMethod());
-
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-
-        // Caso genérico: error de formato JSON 
-        error.put("error", "Formato de datos inválido.");
-        error.put("detalle", ex.getMostSpecificCause().getMessage());
-        error.put("codigo", HttpStatus.BAD_REQUEST.value());
-        error.put("url", req.getRequestURL().toString());
-        error.put("metodo", req.getMethod());
-
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }
