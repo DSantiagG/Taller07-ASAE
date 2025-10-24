@@ -5,6 +5,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.output.GestionarCursoPersistIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.modelos.Curso;
@@ -22,6 +23,7 @@ public class GestionarCursoPersistAdapter implements GestionarCursoPersistIntPor
         this.objMapeador = objMapeador;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Curso> findByAsignaturaNombre(String nombreAsignatura) {
         List<CursoEntity> lista = this.objCursoRepositorio.findByObjAsignaturaNombre(nombreAsignatura);
@@ -29,6 +31,7 @@ public class GestionarCursoPersistAdapter implements GestionarCursoPersistIntPor
         return listaCursos;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Curso obtenerCursoById(Integer idCurso) {
         if (this.objCursoRepositorio.existsById(idCurso) == false) {
@@ -39,6 +42,7 @@ public class GestionarCursoPersistAdapter implements GestionarCursoPersistIntPor
         return curso;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public boolean existsById(Integer idCurso) {
         return this.objCursoRepositorio.existsById(idCurso);
