@@ -16,7 +16,6 @@ public class DocenteDisponibleHandler extends ValidacionHandler {
         // Lógica para validar si el docente está disponible en la franja horaria dada
         System.out.println("Validando disponibilidad del docente...");
 
-        //TODO: Cambiar mensaje de error
         franja.getObjCurso().getDocentes().forEach(docente -> {
             boolean docenteDisponible = this.objCadenaResponsabilidad.estaDocenteDisponible(docente.getId(), franja.getDia(), franja.getHoraInicio(), franja.getHoraFin());
             if (!docenteDisponible) {

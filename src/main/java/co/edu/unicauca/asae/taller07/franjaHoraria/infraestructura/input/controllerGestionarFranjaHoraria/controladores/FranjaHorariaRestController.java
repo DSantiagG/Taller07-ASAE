@@ -18,6 +18,9 @@ import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.control
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTORespuesta.FranjaHorariaDeCursoDTORespuesta;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTORespuesta.FranjaHorariaDeDocenteDTORespuesta;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaMapperInfraestructuraDominio;
+import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaPorCursoMapper;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,9 +30,10 @@ public class FranjaHorariaRestController {
 
     private final GestionarFranjaHorariaCUIntPort objGestionarFranjaHorariaCUInt;
     private final FranjaMapperInfraestructuraDominio objMapeador;
+    private final FranjaPorCursoMapper objMapeadorPorCurso;
 
     @PostMapping()
-    public ResponseEntity<FranjaHorariaDeDocenteDTORespuesta> crearFranjaHoraria(@RequestBody FranjaHorariaDTOPeticion franjaHorariaDTOPeticion) {
+    public ResponseEntity<FranjaHorariaDeDocenteDTORespuesta> crearFranjaHoraria(@RequestBody @Valid FranjaHorariaDTOPeticion franjaHorariaDTOPeticion) {
         Integer idCurso = franjaHorariaDTOPeticion.getIdCurso();
         Integer idEspacioFisico = franjaHorariaDTOPeticion.getIdEspacioFisico();
         FranjaHoraria franjaHorariaDominio = objMapeador.mappearDePeticionAFranjaHoraria(franjaHorariaDTOPeticion);
@@ -38,27 +42,34 @@ public class FranjaHorariaRestController {
         return objRespuesta;
     }
 
-    //TODO: CAMBIAR A EAGER
-    @GetMapping("/ByDocente/{idDocente}")
-    public ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> listarFranjaHorariaPorDocente(@PathVariable Integer idDocente) {
+    @GetMapping("/Docente/{idDocente}")
+    public ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> listarFranjaHorariaPorDocente(@PathVariable @Min(1) Integer idDocente) {
         List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findByDocenteId(idDocente);
         List<FranjaHorariaDeDocenteDTORespuesta> listaFranjasDTO = objMapeador.mappearDeListaFranjaHorariaDeDocenteARespuesta(listaFranjas);
         ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> objRespuesta = new ResponseEntity<>(listaFranjasDTO, HttpStatus.OK);
         return objRespuesta;
     }
 
-    @GetMapping("/ByCurso/{idCurso}")
-    public ResponseEntity<List<FranjaHorariaDeCursoDTORespuesta>> listarFranjaHorariaPorCurso(@PathVariable Integer idCurso) {
+    @GetMapping("/Curso/{idCurso}")
+    public ResponseEntity<List<FranjaHorariaDeCursoDTORespuesta>> listarFranjaHorariaPorCurso(@PathVariable @Min(1) Integer idCurso) {
         List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findByCursoId(idCurso);
-        List<FranjaHorariaDeCursoDTORespuesta> listaFranjasDTO = objMapeador.mappearDeFranjaHorariaDeCursoARespuesta(listaFranjas);
+        List<FranjaHorariaDeCursoDTORespuesta> listaFranjasDTO = objMapeadorPorCurso.mappearListaDeFranjaHorariaACursoRespuesta(listaFranjas);
         ResponseEntity<List<FranjaHorariaDeCursoDTORespuesta>> objRespuesta = new ResponseEntity<>(listaFranjasDTO, HttpStatus.OK);
         return objRespuesta;
     }
 
-    @DeleteMapping("/ByCurso/{idCurso}")
-    public ResponseEntity<Void> eliminarFranjasPorCurso(@PathVariable Integer idCurso) {
+    @DeleteMapping("/Curso/{idCurso}")
+    public ResponseEntity<Void> eliminarFranjasPorCurso(@PathVariable @Min(1) Integer idCurso) {
         this.objGestionarFranjaHorariaCUInt.eliminarFranjasPorCurso(idCurso);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/Todas")
+    public ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> listarTodasLasFranjas() {
+        List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findAll();
+        List<FranjaHorariaDeDocenteDTORespuesta> listaFranjasDTO = objMapeador.mappearDeListaFranjaHorariaDeDocenteARespuesta(listaFranjas);
+        ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> objRespuesta = new ResponseEntity<>(listaFranjasDTO, HttpStatus.OK);
+        return objRespuesta;
     }
     
 }

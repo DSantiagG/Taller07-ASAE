@@ -48,6 +48,7 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
         franjaHoraria.setObjEspacioFisico(espacioFisicoAsociado);
         this.cadenaValidaciones.validar(franjaHoraria);
         return this.gestionarFranjaHorariaPersistIntPort.crearFranjaHoraria(franjaHoraria);
+    
     }
 
     @Override
@@ -74,14 +75,17 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
         if (!cursoAsociado) {
             this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
         }
-        return this.gestionarFranjaHorariaPersistIntPort.encontrarByCursoId(cursoId);
-
+        /**List<Docente> listaDocentes = this.gestionarDocentePersistIntPort.getDocentesPorCursoId(cursoId);
+        if (listaDocentes.isEmpty()) {
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no tiene docentes asignados");
+        }*/
+        List<FranjaHoraria> franjas = this.gestionarFranjaHorariaPersistIntPort.encontrarByCursoId(cursoId);
+        return franjas;
     }
 
     @Override
     public List<FranjaHoraria> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return this.gestionarFranjaHorariaPersistIntPort.listarFranjas();
     }
     
 }

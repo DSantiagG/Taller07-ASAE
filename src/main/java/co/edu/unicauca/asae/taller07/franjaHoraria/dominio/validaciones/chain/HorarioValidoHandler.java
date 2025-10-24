@@ -20,7 +20,6 @@ public class HorarioValidoHandler extends ValidacionHandler {
         // Lógica para validar si el horario es válido
         boolean horarioValido = checkHorarioValido(franja);
 
-        //TODO: Cambiar mensaje de error
         if (!horarioValido) {
             this.objFormateadorResultados.retornarRespuestaErrorReglaDeNegocio("El franja horaria no esta dentro del horario valido ( 6 am a 10 pm)");
         }

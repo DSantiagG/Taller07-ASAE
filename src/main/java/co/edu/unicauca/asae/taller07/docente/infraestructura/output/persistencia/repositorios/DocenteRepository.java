@@ -1,6 +1,7 @@
 package co.edu.unicauca.asae.taller07.docente.infraestructura.output.persistencia.repositorios;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -38,4 +39,12 @@ public interface DocenteRepository extends JpaRepository<DocenteEntity, Integer>
     WHERE d.correo = :correo
     """)
     boolean existePorCorreo(String correo);
+
+    @Query("""
+    SELECT d
+    FROM DocenteEntity d
+    JOIN d.cursos c
+    WHERE c.id = :idCurso
+    """)
+    List<DocenteEntity> findDocentesByCursoId(@Param("idCurso") Integer idCurso);
 }
