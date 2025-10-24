@@ -6,8 +6,6 @@ import java.util.List;
 import co.edu.unicauca.asae.taller07.commons.dominio.modelos.EnumDias;
 import co.edu.unicauca.asae.taller07.docente.infraestructura.input.controllerGestionarDocente.DTORespuesta.DocenteDTORespuesta;
 import co.edu.unicauca.asae.taller07.espacioFisico.infraestructura.input.controllerGestionarEspacioFisico.DTORespuesta.EspacioFisicoDTORespuesta;
-import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarCurso.DTORespuesta.CursoDTORespuesta;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,5 +27,7 @@ public class FranjaHorariaDeCursoDTORespuesta {
 
     private EspacioFisicoDTORespuesta objEspacioFisico;
 
-    private List<DocenteDTORespuesta> objDocentes;
+    //private CursoDTORespuesta objCurso;
+
+    private List<DocenteDTORespuesta> objDocente;
 }

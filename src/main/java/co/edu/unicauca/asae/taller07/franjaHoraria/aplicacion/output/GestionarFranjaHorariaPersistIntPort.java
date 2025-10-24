@@ -9,4 +9,5 @@ public interface GestionarFranjaHorariaPersistIntPort {
     List<FranjaHoraria> encontrarByCursoId(Integer cursoId);
     List<FranjaHoraria> encontrarByDocenteId(Integer docenteId);
     void eliminarFranjasPorCurso(Integer cursoId);
+    List<FranjaHoraria> listarFranjas();
 }

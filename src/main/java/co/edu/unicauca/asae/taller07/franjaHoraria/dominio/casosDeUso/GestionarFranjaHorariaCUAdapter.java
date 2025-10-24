@@ -4,7 +4,6 @@ import java.util.List;
 
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.taller07.docente.aplicacion.output.GestionarDocentePersistIntPort;
-import co.edu.unicauca.asae.taller07.docente.dominio.modelos.Docente;
 import co.edu.unicauca.asae.taller07.espacioFisico.aplicacion.output.GestionarEspacioFisicoPersistIntPort;
 import co.edu.unicauca.asae.taller07.espacioFisico.dominio.modelos.EspacioFisico;
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.input.GestionarFranjaHorariaCUIntPort;
@@ -76,15 +75,17 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
         if (!cursoAsociado) {
             this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
         }
-        List<Docente> listaDocentes = this.gestionarDocentePersistIntPort.getDocentesPorCursoId(cursoId);
-        
-        return this.gestionarFranjaHorariaPersistIntPort.encontrarByCursoId(cursoId);
+        /**List<Docente> listaDocentes = this.gestionarDocentePersistIntPort.getDocentesPorCursoId(cursoId);
+        if (listaDocentes.isEmpty()) {
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no tiene docentes asignados");
+        }*/
+        List<FranjaHoraria> franjas = this.gestionarFranjaHorariaPersistIntPort.encontrarByCursoId(cursoId);
+        return franjas;
     }
 
     @Override
     public List<FranjaHoraria> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return this.gestionarFranjaHorariaPersistIntPort.listarFranjas();
     }
     
 }

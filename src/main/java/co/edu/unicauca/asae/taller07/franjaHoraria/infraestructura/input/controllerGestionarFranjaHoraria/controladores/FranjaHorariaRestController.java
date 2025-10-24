@@ -18,6 +18,7 @@ import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.control
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTORespuesta.FranjaHorariaDeCursoDTORespuesta;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTORespuesta.FranjaHorariaDeDocenteDTORespuesta;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaMapperInfraestructuraDominio;
+import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaPorCursoMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class FranjaHorariaRestController {
 
     private final GestionarFranjaHorariaCUIntPort objGestionarFranjaHorariaCUInt;
     private final FranjaMapperInfraestructuraDominio objMapeador;
+    private final FranjaPorCursoMapper objMapeadorPorCurso;
 
     @PostMapping()
     public ResponseEntity<FranjaHorariaDeDocenteDTORespuesta> crearFranjaHoraria(@RequestBody @Valid FranjaHorariaDTOPeticion franjaHorariaDTOPeticion) {
@@ -51,7 +53,7 @@ public class FranjaHorariaRestController {
     @GetMapping("/Curso/{idCurso}")
     public ResponseEntity<List<FranjaHorariaDeCursoDTORespuesta>> listarFranjaHorariaPorCurso(@PathVariable @Min(1) Integer idCurso) {
         List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findByCursoId(idCurso);
-        List<FranjaHorariaDeCursoDTORespuesta> listaFranjasDTO = objMapeador.mappearDeFranjaHorariaDeCursoARespuesta(listaFranjas);
+        List<FranjaHorariaDeCursoDTORespuesta> listaFranjasDTO = objMapeadorPorCurso.mappearListaDeFranjaHorariaACursoRespuesta(listaFranjas);
         ResponseEntity<List<FranjaHorariaDeCursoDTORespuesta>> objRespuesta = new ResponseEntity<>(listaFranjasDTO, HttpStatus.OK);
         return objRespuesta;
     }
@@ -60,6 +62,14 @@ public class FranjaHorariaRestController {
     public ResponseEntity<Void> eliminarFranjasPorCurso(@PathVariable @Min(1) Integer idCurso) {
         this.objGestionarFranjaHorariaCUInt.eliminarFranjasPorCurso(idCurso);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/Todas")
+    public ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> listarTodasLasFranjas() {
+        List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findAll();
+        List<FranjaHorariaDeDocenteDTORespuesta> listaFranjasDTO = objMapeador.mappearDeListaFranjaHorariaDeDocenteARespuesta(listaFranjas);
+        ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> objRespuesta = new ResponseEntity<>(listaFranjasDTO, HttpStatus.OK);
+        return objRespuesta;
     }
     
 }

@@ -28,4 +28,14 @@ public interface FranjaHorariaRepository extends JpaRepository<FranjaHorariaEnti
     @Transactional
     @Query("DELETE FROM FranjaHorariaEntity f WHERE f.objCurso.id = :idCurso")
     void eliminarFranjasPorCurso(@Param("idCurso") Integer idCurso);
+
+    List<FranjaHorariaEntity> findAll();
+
+    @Query("""
+        SELECT f
+        FROM FranjaHorariaEntity f
+        LEFT JOIN FETCH f.objEspacioFisico ef
+        WHERE f.objCurso.id = :cursoId
+    """)
+    List<FranjaHorariaEntity> findFranjasByCursoIdSinCurso(@Param("cursoId") Integer cursoId);
 }

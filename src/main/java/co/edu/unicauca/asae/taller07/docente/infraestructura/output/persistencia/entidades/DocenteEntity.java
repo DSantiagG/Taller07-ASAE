@@ -19,7 +19,7 @@ public class DocenteEntity extends PersonaEntity {
     @JoinColumn(name = "oficina_id", nullable = true)
     private OficinaEntity objOficina;
 
-    @ManyToMany(mappedBy = "docentes",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "docentes",fetch = FetchType.LAZY)
     private List<CursoEntity> cursos;
 
     DocenteEntity(Integer id, String nombre, String apellido, String correo, String identificacion, OficinaEntity objOficina) {
