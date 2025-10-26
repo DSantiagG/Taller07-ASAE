@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.unicauca.asae.taller07.docente.infraestructura.output.persistencia.gateway.GestionarDocentePersistImpl;
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.input.GestionarFranjaHorariaCUIntPort;
 import co.edu.unicauca.asae.taller07.franjaHoraria.dominio.modelos.FranjaHoraria;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTOPeticion.FranjaHorariaDTOPeticion;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTORespuesta.FranjaHorariaDeCursoDTORespuesta;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTORespuesta.FranjaHorariaDeDocenteDTORespuesta;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaMapperInfraestructuraDominio;
+import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaPorCursoMapper;
+import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaPorDocenteMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +28,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/franja-horaria")
 @RequiredArgsConstructor
+@Validated
 public class FranjaHorariaRestController {
 
     private final GestionarFranjaHorariaCUIntPort objGestionarFranjaHorariaCUInt;
     private final FranjaMapperInfraestructuraDominio objMapeador;
+    private final FranjaPorCursoMapper objMapeadorPorCurso;
+    private final FranjaPorDocenteMapper objMapeadorPorDocente;
 
     @PostMapping()
     public ResponseEntity<FranjaHorariaDeDocenteDTORespuesta> crearFranjaHoraria(@RequestBody @Valid FranjaHorariaDTOPeticion franjaHorariaDTOPeticion) {
@@ -44,7 +49,7 @@ public class FranjaHorariaRestController {
     @GetMapping("/Docente/{idDocente}")
     public ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> listarFranjaHorariaPorDocente(@PathVariable @Min(1) Integer idDocente) {
         List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findByDocenteId(idDocente);
-        List<FranjaHorariaDeDocenteDTORespuesta> listaFranjasDTO = objMapeador.mappearDeListaFranjaHorariaDeDocenteARespuesta(listaFranjas);
+        List<FranjaHorariaDeDocenteDTORespuesta> listaFranjasDTO = objMapeadorPorDocente.mappearDeListaFranjaHorariaDeDocenteARespuesta(listaFranjas);
         ResponseEntity<List<FranjaHorariaDeDocenteDTORespuesta>> objRespuesta = new ResponseEntity<>(listaFranjasDTO, HttpStatus.OK);
         return objRespuesta;
     }
@@ -52,7 +57,7 @@ public class FranjaHorariaRestController {
     @GetMapping("/Curso/{idCurso}")
     public ResponseEntity<List<FranjaHorariaDeCursoDTORespuesta>> listarFranjaHorariaPorCurso(@PathVariable @Min(1) Integer idCurso) {
         List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findByCursoId(idCurso);
-        List<FranjaHorariaDeCursoDTORespuesta> listaFranjasDTO = objMapeador.mappearDeFranjaHorariaDeCursoARespuesta(listaFranjas);
+        List<FranjaHorariaDeCursoDTORespuesta> listaFranjasDTO = objMapeadorPorCurso.mappearListaDeFranjaHorariaACursoRespuesta(listaFranjas);
         ResponseEntity<List<FranjaHorariaDeCursoDTORespuesta>> objRespuesta = new ResponseEntity<>(listaFranjasDTO, HttpStatus.OK);
         return objRespuesta;
     }

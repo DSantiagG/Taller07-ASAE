@@ -15,6 +15,7 @@ public interface FranjaMapperInfraestructuraDominio {
     @Mapping(target = "objCurso", ignore = true)
     @Mapping(target = "objEspacioFisico", ignore = true)
     FranjaHoraria mappearDePeticionAFranjaHoraria(FranjaHorariaDTOPeticion franjaHorariaDTOPeticion);
+    
     FranjaHorariaDeDocenteDTORespuesta mappearDeFranjaHorariaDeDocenteARespuesta(FranjaHoraria franjaHoraria);
     List<FranjaHorariaDeDocenteDTORespuesta> mappearDeListaFranjaHorariaDeDocenteARespuesta(List<FranjaHoraria> franjasHorarias);
 
