@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +18,17 @@ public class GestionarFranjaHorariaPersistImpl implements GestionarFranjaHoraria
 
     private final FranjaHorariaRepository franjaHorariaRepository;
     private final ModelMapper objMapper;
+    private final ModelMapper objMapperConSkip;
 
-    public GestionarFranjaHorariaPersistImpl(FranjaHorariaRepository franjaHorariaRepository, ModelMapper objMapper) {
+    public GestionarFranjaHorariaPersistImpl(
+        FranjaHorariaRepository franjaHorariaRepository, 
+        @Qualifier("mapperNormal")
+        ModelMapper objMapper, 
+        @Qualifier("mapperConSkip")
+        ModelMapper objMapperConSkip) {
         this.franjaHorariaRepository = franjaHorariaRepository;
         this.objMapper = objMapper;
+        this.objMapperConSkip = objMapperConSkip;
     }
 
     @Override
@@ -34,8 +42,13 @@ public class GestionarFranjaHorariaPersistImpl implements GestionarFranjaHoraria
     @Override
     @Transactional(readOnly = true)
     public List<FranjaHoraria> encontrarByCursoId(Integer cursoId) {
-        List<FranjaHorariaEntity> franjasEntities = franjaHorariaRepository.findFranjasByCursoIdSinCurso(cursoId);
-        List<FranjaHoraria> franjas = this.objMapper.map(franjasEntities, new TypeToken<List<FranjaHoraria>>() {}.getType());
+        List<FranjaHorariaEntity> franjasEntities = franjaHorariaRepository.findByObjCursoId(cursoId);
+        System.out.println("------Antes de mapear las franjas-------\n");
+        //List<FranjaHoraria> franjas = this.objMapper.map(franjasEntities, new TypeToken<List<FranjaHoraria>>() {}.getType());
+        List<FranjaHoraria> franjas = franjasEntities.stream()
+                .map(entity -> this.objMapperConSkip.map(entity, FranjaHoraria.class))
+                .toList();
+        System.out.println("------Después de mapear las franjas-------\n");
         return franjas;
     }
 

@@ -19,7 +19,6 @@ import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.control
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTORespuesta.FranjaHorariaDeCursoDTORespuesta;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.DTORespuesta.FranjaHorariaDeDocenteDTORespuesta;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaMapperInfraestructuraDominio;
-import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaPorCursoMapper;
 import co.edu.unicauca.asae.taller07.franjaHoraria.infraestructura.input.controllerGestionarFranjaHoraria.mappers.FranjaPorDocenteMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -33,7 +32,6 @@ public class FranjaHorariaRestController {
 
     private final GestionarFranjaHorariaCUIntPort objGestionarFranjaHorariaCUInt;
     private final FranjaMapperInfraestructuraDominio objMapeador;
-    private final FranjaPorCursoMapper objMapeadorPorCurso;
     private final FranjaPorDocenteMapper objMapeadorPorDocente;
 
     @PostMapping()
@@ -57,7 +55,7 @@ public class FranjaHorariaRestController {
     @GetMapping("/Curso/{idCurso}")
     public ResponseEntity<List<FranjaHorariaDeCursoDTORespuesta>> listarFranjaHorariaPorCurso(@PathVariable @Min(1) Integer idCurso) {
         List<FranjaHoraria> listaFranjas = this.objGestionarFranjaHorariaCUInt.findByCursoId(idCurso);
-        List<FranjaHorariaDeCursoDTORespuesta> listaFranjasDTO = objMapeadorPorCurso.mappearListaDeFranjaHorariaACursoRespuesta(listaFranjas);
+        List<FranjaHorariaDeCursoDTORespuesta> listaFranjasDTO = objMapeador.mappearListaDeFranjaHorariaPorCursoARespuesta(listaFranjas);
         ResponseEntity<List<FranjaHorariaDeCursoDTORespuesta>> objRespuesta = new ResponseEntity<>(listaFranjasDTO, HttpStatus.OK);
         return objRespuesta;
     }

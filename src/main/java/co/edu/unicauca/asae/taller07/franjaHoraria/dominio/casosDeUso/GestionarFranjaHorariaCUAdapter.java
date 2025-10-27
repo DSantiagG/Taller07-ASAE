@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.edu.unicauca.asae.taller07.commons.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.taller07.docente.aplicacion.output.GestionarDocentePersistIntPort;
+import co.edu.unicauca.asae.taller07.docente.dominio.modelos.Docente;
 import co.edu.unicauca.asae.taller07.espacioFisico.aplicacion.output.GestionarEspacioFisicoPersistIntPort;
 import co.edu.unicauca.asae.taller07.espacioFisico.dominio.modelos.EspacioFisico;
 import co.edu.unicauca.asae.taller07.franjaHoraria.aplicacion.input.GestionarFranjaHorariaCUIntPort;
@@ -67,9 +68,13 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
     public List<FranjaHoraria> findByDocenteId(Integer docenteId) {
         boolean docente = this.gestionarDocentePersistIntPort.existePorId(docenteId);
         if (!docente) {
-            this.objFormateadorResultados.retornarRespuestaErrorEntidadExiste("El docente no existe");
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El docente no existe");
         }
-        return this.gestionarFranjaHorariaPersistIntPort.encontrarByDocenteId(docenteId);
+        List<FranjaHoraria> franjas = this.gestionarFranjaHorariaPersistIntPort.encontrarByDocenteId(docenteId);
+        if(franjas.isEmpty()){
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El docente no tiene franjas horarias asignadas");
+        }
+        return franjas;
     }
 
     @Override
@@ -78,11 +83,17 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
         if (!cursoAsociado) {
             this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no existe");
         }
-        /**List<Docente> listaDocentes = this.gestionarDocentePersistIntPort.getDocentesPorCursoId(cursoId);
+        List<Docente> listaDocentes = this.gestionarDocentePersistIntPort.getDocentesPorCursoId(cursoId);
         if (listaDocentes.isEmpty()) {
             this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no tiene docentes asignados");
-        }*/
+        }
         List<FranjaHoraria> franjas = this.gestionarFranjaHorariaPersistIntPort.encontrarByCursoId(cursoId);
+        if(franjas.isEmpty()){
+            this.objFormateadorResultados.retornarRespuestaErrorEntidadNoExiste("El curso no tiene franjas horarias asignadas");
+        }
+        for (FranjaHoraria franja : franjas) {
+            franja.setObjDocentes(listaDocentes);
+        }
         return franjas;
     }
 
